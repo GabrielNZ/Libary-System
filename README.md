@@ -18,11 +18,17 @@ The logic of the project is created entirely by me.
 - Java
 - POO
 - JPA
-- MySQL
 - Spring Boot
 - Spring Web
 - Spring Security
 - JWT
+## Implementation
+- DataBase: MySQL
+- Messaging
+  - RabbitMQ
+  - AMQP
+- JavaMailSender
+# Autor
 # Autor
 
 Gabriel Nicolodi Zimmermann
