@@ -16,7 +16,6 @@ The logic of the project is created entirely by me.
 # Tecnologies
 ## Back end
 - Java
-- POO
 - JPA
 - Spring Boot
 - Spring Web
