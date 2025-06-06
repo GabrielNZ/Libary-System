@@ -1,4 +1,4 @@
 package com.example.demo.entity;
 
-public record AuthenticationDTO(String login, String password) {
+public record AuthenticationDTO(String name, String password) {
 }

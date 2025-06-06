@@ -17,15 +17,11 @@ public class TokenGenerator {
 
     public String generateToken(User user) {
         Algorithm algorithm = Algorithm.HMAC256(validation);
-        String token = JWT.create().withIssuer("auth_api").withSubject(user.getName()).withExpiresAt(generateExpirationDate()).sign(algorithm);
+        String token = JWT.create().withIssuer("auth_api").withSubject(user.getName()).withExpiresAt(Instant.now().plusSeconds(1000)).sign(algorithm);
         return token;
     }
     public String validateToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256(validation);
         return JWT.require(algorithm).withIssuer("auth_api").build().verify(token).getSubject();
-    }
-
-    private Instant generateExpirationDate() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
     }
 }

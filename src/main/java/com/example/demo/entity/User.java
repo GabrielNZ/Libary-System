@@ -4,9 +4,9 @@ import com.example.demo.entity.enumtype.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
@@ -34,6 +34,7 @@ public class User extends RepresentationModel<User> implements UserDetails {
     }
 
     public User (String login, String email, String phone, String password, Role role){
+        this.name = login;
         this.role = role;
         this.email = email;
         this.phone = phone;

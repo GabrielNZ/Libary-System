@@ -164,27 +164,27 @@ public class Test implements CommandLineRunner {
                         user1.setName("João Silva");
                         user1.setEmail("joao.silva@email.com");
                         user1.setPhone("11999999999");
-                        user1.setPassword("senhaSegura123");
-                        user1.setFines(0.0);
-                        user1.setRole(Role.CLIENT);
+                     //   user1.setPassword("senhaSegura123");
+                      //  user1.setFines(0.0);
+                      //  user1.setRole(Role.CLIENT);
 
                         userRepository.save(user1);
                         User user2 = new User();
                         user2.setName("Pedro Parizotto Aura");
                         user2.setEmail("jhonson@email.com");
                         user2.setPhone("11999459999");
-                        user2.setPassword("senhaAura");
-                        user2.setFines(0.0);
-                        user2.setRole(Role.CLIENT);
+                    //    user2.setPassword("senhaAura");
+                     //   user2.setFines(0.0);
+                      //  user2.setRole(Role.CLIENT);
 
                         userRepository.save(user2);
                         User user3 = new User();
                         user3.setName("Maria Claudia");
                         user3.setEmail("maria@email.com");
                         user3.setPhone("18932143124");
-                        user3.setPassword("12345678");
-                        user3.setFines(0.0);
-                        user3.setRole(Role.CLIENT);
+                    //    user3.setPassword("12345678");
+                     //   user3.setFines(0.0);
+                     //   user3.setRole(Role.CLIENT);
 
                         userRepository.save(user3);
                     }

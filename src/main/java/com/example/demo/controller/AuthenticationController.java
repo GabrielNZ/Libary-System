@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.AuthenticationDTO;
+import com.example.demo.entity.Email;
 import com.example.demo.entity.RegisterRecord;
 import com.example.demo.entity.User;
+import com.example.demo.messaging.EmailProducer;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.TokenGenerator;
 import jakarta.validation.Valid;
@@ -25,19 +27,32 @@ public class AuthenticationController {
     UserRepository userRepository;
     @Autowired
     TokenGenerator tokenGenerator;
+    @Autowired
+    EmailProducer emailProducer;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
-        var auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.login(), data.password()));
-        tokenGenerator.generateToken((User)auth.getPrincipal());
-        return ResponseEntity.ok().build();
+        var auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.name(), data.password()));
+        String token = tokenGenerator.generateToken((User)auth.getPrincipal());
+        return ResponseEntity.ok().body(token);
     }
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterRecord data) {
-        if(userRepository.findByName(data.login()) != null) return ResponseEntity.ok().build();
-        User newUser = new User(data.login(),data.email(),data.phone(),new BCryptPasswordEncoder().encode(data.login()),data.role());
+        Email email = new Email();
+        if(userRepository.findByName(data.name()) != null) {
+            email.setEmail(userRepository.findByName(data.name()).getEmail());
+            email.setSubject("Your account is at risk!");
+            email.setText("Someone tried to register an account with this email... ");
+            emailProducer.sendEmail(email);
+            return ResponseEntity.ok().build();
+        }
+        User newUser = new User(data.name(),data.email(),data.phone(),new BCryptPasswordEncoder().encode(data.password()), data.role());
         userRepository.save(newUser);
+        email.setEmail(newUser.getEmail());
+        email.setSubject("Your registration is complete!");
+        email.setText("Thanks for your registration!, enjoy all the benefits of our libary!");
+        emailProducer.sendEmail(email);
         return ResponseEntity.ok().build();
     }
 }
