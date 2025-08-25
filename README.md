@@ -28,7 +28,6 @@ The logic of the project is created entirely by me.
   - AMQP
 - JavaMailSender
 # Autor
-# Autor
 
 Gabriel Nicolodi Zimmermann
 
